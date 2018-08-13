@@ -1,34 +1,39 @@
 <template>
-<v-card>
-    <v-card-title class="headline">Login</v-card-title>
-   <v-form>
-    <v-container fluid>
-      <v-layout row wrap>
-            <v-text-field
-                class="user-login"
-                v-model="user"
-                label="First name"
-                required
+<v-layout row wrap justify-center>
+    <v-flex xs12 sm10 md8 lg6>
+    <v-card>
+        <v-card-title class="headline">Login</v-card-title>
+    <v-form>
+        <v-container fluid>
+                <v-text-field
+                    class="user-login"
+                    v-model="user"
+                    label="Username"
+                    required
+                    ></v-text-field>
+                <v-text-field
+                    v-model="password"
+                    :append-icon="show ? 'visibility_off' : 'visibility'"
+                    :rules="[rules.required, rules.min]"
+                    :type="show ? 'text' : 'password'"
+                    name="input-10-1"
+                    label="Normal with hint text"
+                    hint="At least 8 characters"
+                    counter
+                    required
+                    @click:append="show = !show"
                 ></v-text-field>
-          <v-text-field
-            v-model="password"
-            :append-icon="show ? 'visibility_off' : 'visibility'"
-            :rules="[rules.required, rules.min]"
-            :type="show ? 'text' : 'password'"
-            name="input-10-1"
-            label="Normal with hint text"
-            hint="At least 8 characters"
-            counter
-            required
-            @click:append="show = !show"
-          ></v-text-field>
-      </v-layout>
-    <v-spacer></v-spacer>
-    <v-btn>Submit</v-btn>
-    </v-container>
-  </v-form>
+        </v-container>
+        <v-card-actions>
+            <v-spacer/>
+            <v-btn @click="authenticate()">Submit</v-btn>
+        </v-card-actions>
+        <p>No account? <a @click="switchToCreate()">Create one now.</a></p>
+    </v-form>
 
-</v-card>
+    </v-card>
+    </v-flex>
+</v-layout>
 </template>
 
 <script>
@@ -36,6 +41,7 @@ export default {
 
     data() {
         return {
+            createAccount: false,
             user: '',
             show: false,
             password: 'Password',
@@ -45,7 +51,19 @@ export default {
             emailMatch: () => ('The email and password you entered don\'t match')
             }
         }
-    }
+    },
+
+    computed: {
+        },
+
+    methods: {
+        switchToCreate() {
+            console.log('hello!')
+        },
+        authenticate() {
+            
+        }
+    },
 
 }
 </script>

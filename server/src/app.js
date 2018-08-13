@@ -5,6 +5,16 @@ const helmet = require('helmet');
 const cors = require('cors');
 const logger = require('./logger');
 
+///////////// AUTH /////////////
+const auth = require('@feathersjs/authentication');
+const local = require('@feathersjs/authentication-local');
+const jwt = require('@feathersjs/authentication-jwt');
+
+////////////////////////////////
+
+/////////// SERVICES ///////////
+const users = require('./services/users/users.service.js')
+
 // Rethink
 const rethink = require('rethinkdbdash');
 const service = require('feathers-rethinkdb');
@@ -25,6 +35,8 @@ const services = require('./services');
 const appHooks = require('./app.hooks');
 const channels = require('./channels');
 
+const rethinkdb = require('./rethinkdb');
+
 const app = express(feathers());
 
 // Load app configuration
@@ -43,6 +55,46 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio());
 
+app.configure(users)
+
+app.use('authentication', service({
+  Model: r,
+  name: 'authentication',
+  paginate: {
+    default: 10,
+    max: 50
+  }
+}));
+
+app.service('authentication').init()
+
+app.service('users').hooks({
+  after: local.hooks.protect('password')
+});
+
+app.service('authentication').hooks({
+  before: {
+   create: [
+    // You can chain multiple strategies
+    auth.hooks.authenticate(['jwt', 'local'])
+   ],
+   remove: [
+    auth.hooks.authenticate('jwt')
+   ]
+  }
+ });
+
+app.service('users').hooks({
+ before: {
+  find: [
+   auth.hooks.authenticate('jwt')
+  ],
+  create: [
+   local.hooks.hashPassword({ passwordField: 'password' })
+  ]
+ }
+});
+
 app.use('messages', service({
     Model: r,
     name: 'messages',
@@ -52,14 +104,7 @@ app.use('messages', service({
     }
   }));
 
-  app.use('users', service({
-    Model: r,
-    name: 'users',
-    paginate: {
-      default: 10,
-      max: 50
-    }
-  }));
+app.configure(rethinkdb);
 
 // Configure other middleware (see `middleware/index.js`)
 app.configure(middleware);
@@ -74,10 +119,6 @@ app.use(express.errorHandler({ logger }));
 
 app.hooks(appHooks);
 
-// Initialize database and messages table if it does not exists yet
-app.service('users').init().then(() => {
-  console.log('users table created')
-})
 app.service('messages').init().then(() => {
     // Create a message on the server
     app.service('messages').create({
