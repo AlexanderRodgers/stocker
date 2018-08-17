@@ -1,12 +1,11 @@
 <template>
   <v-layout justify-center>
     <v-flex xs12 sm10 md8 lg6>
-      <v-card ref="form">
+      <v-card ref="form">    
+        <v-card-title class="headline">Login</v-card-title>
         <v-card-text>
           <v-text-field
-            ref="name"
             v-model="first"
-            :rules="[() => !!name || 'This field is required']"
             :error-messages="errorMessages"
             label="First Name"
             placeholder="John"
@@ -20,18 +19,24 @@
           ></v-text-field>
           <v-text-field
             ref="username"
-            :rules="[() => !!username || 'This field is required', addressCheck]"
             v-model="username"
             label="Username"
-            placeholder="El Paso"
+            placeholder="somebody"
             required
           ></v-text-field>
+          <v-text-field
+            v-model="password"
+            :append-icon="show1 ? 'visibility_off' : 'visibility'"
+            :type="show1 ? 'text' : 'password'"
+            label="Password"
+            placeholder="Password"
+            hint="At least 8 characters"
+            @click:append="show1 = !show1"
+          ></v-text-field>
         </v-card-text>
-        <v-divider class="mt-5"></v-divider>
         <v-card-actions>
           <v-btn flat>Cancel</v-btn>
-          <v-spacer></v-spacer>
-          <v-slide-x-reverse-transition>
+          <v-spacer/>
             <v-tooltip
               v-if="formHasErrors"
               left
@@ -46,10 +51,9 @@
               </v-btn>
               <span>Refresh form</span>
             </v-tooltip>
-          </v-slide-x-reverse-transition>
-          <v-btn color="primary" flat @click="submit">Submit</v-btn>
+          <v-btn color="primary" flat @click="submit()">Submit</v-btn>
         </v-card-actions>
-        <p>Already have an account? <a @click="switchToLogin()">Login here</a></p>
+        <p>Already have an account? <a>Login here</a></p>
       </v-card>
     </v-flex>
   </v-layout>
@@ -62,26 +66,18 @@
       first: null,
       last: null,
       username: null,
-      formHasErrors: false
+      password: '',
+      formHasErrors: false,
+      show1: false,
     }),
 
     computed: {
-      switchToLogin() {
-        console.log('emitting event')
-        return this.$emit('login', true);
-      },
       form () {
         return {
           first: this.first,
           last: this.last,
           username: this.username,
         }
-      }
-    },
-
-    watch: {
-      name () {
-        this.errorMessages = ''
       }
     },
 
@@ -95,14 +91,18 @@
         })
       },
       submit () {
-        this.formHasErrors = false
-
-        Object.keys(this.form).forEach(f => {
-          if (!this.form[f]) this.formHasErrors = true
-
-          this.$refs[f].validate(true)
-        })
+        this.$F.service('users')
+          .create({
+            first_name: this.first,
+            last_name: this.last,
+            username: this.username,
+            password: this.password
+          })
       }
+    },
+
+    mounted() {
+      console.log(this.$F.service('users'))
     }
   }
 </script>

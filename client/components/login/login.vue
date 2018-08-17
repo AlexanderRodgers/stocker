@@ -14,7 +14,6 @@
                 <v-text-field
                     v-model="password"
                     :append-icon="show ? 'visibility_off' : 'visibility'"
-                    :rules="[rules.required, rules.min]"
                     :type="show ? 'text' : 'password'"
                     name="input-10-1"
                     label="Normal with hint text"
@@ -28,7 +27,7 @@
             <v-spacer/>
             <v-btn @click="authenticate()">Submit</v-btn>
         </v-card-actions>
-        <p>No account? <a @click="switchToCreate()">Create one now.</a></p>
+        <p>No account? <a>Create one now.</a></p>
     </v-form>
 
     </v-card>
@@ -54,12 +53,9 @@ export default {
     },
 
     computed: {
-        },
+    },
 
     methods: {
-        switchToCreate() {
-            console.log('hello!')
-        },
         authenticate() {
             
         }
