@@ -1,7 +1,7 @@
 <template>
   <div>
-    <login/>
-    <create/>
+    <login v-if="login"/>
+    <create v-on:login="login = $event"/>
   </div>  
 </template>
 
@@ -29,7 +29,7 @@ export default {
 
   data() {
     return {
-      login: true,
+      login: false,
     }
   }
 }

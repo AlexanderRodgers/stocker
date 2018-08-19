@@ -5,6 +5,7 @@ import reactive from 'feathers-reactive'
 import socketio from '@feathersjs/socketio-client'
 import auth from '@feathersjs/authentication-client'
 import io from 'socket.io-client'
+import { CookieStorage } from 'cookie-storage'
 
 const dev = 'http://localhost:3030'
 
@@ -13,8 +14,11 @@ const socket = io(dev)
 const feathersClient = feathers()
 .configure(reactive({idField: '_id'}))
 .configure(socketio(socket))
+.configure(auth({ storage: new CookieStorage() }))
 
 Vue.prototype.$F = feathersClient
+
+//Vue.prototype.$F.authenticate({ strategy: 'jwt', accessToken: token})
 
 import {VueFeathers} from '@vue-feathers/vue-feathers'
 Vue.use(VueFeathers, {feathersClient})

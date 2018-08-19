@@ -68,10 +68,15 @@
       username: null,
       password: '',
       formHasErrors: false,
+      login: false;
       show1: false,
     }),
 
     computed: {
+      login: function(){
+        this.$emit('logout')
+      },
+
       form () {
         return {
           first: this.first,
@@ -91,7 +96,7 @@
         })
       },
       submit () {
-        this.$F.service('users')
+        this.$F.service('authentication')
           .create({
             first_name: this.first,
             last_name: this.last,
