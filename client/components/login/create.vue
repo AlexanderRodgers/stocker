@@ -68,7 +68,7 @@
       username: null,
       password: '',
       formHasErrors: false,
-      login: false;
+      login: false,
       show1: false,
     }),
 
