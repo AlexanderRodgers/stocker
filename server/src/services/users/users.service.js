@@ -3,14 +3,12 @@ const createService = require('feathers-rethinkdb');
 const hooks = require('./users.hooks');
 
 module.exports = function (app) {
-  const r = require('rethinkdbdash')({
-    db: 'feathers'
-  });
+  const Model = app.get('rethinkdbClient');
   const paginate = app.get('paginate');
 
   const options = {
-    Model: r,
     name: 'users',
+    Model,
     paginate
   };
 

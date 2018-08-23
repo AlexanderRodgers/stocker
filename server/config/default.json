@@ -14,5 +14,29 @@
         "port": "28015"
       }
     ]
+  },
+  "authentication": {
+    "secret": "188cf065070c84642e533df0f4717db825f8548b9e64f1aeef88ab12fd85db5111f84f71f47be7b6aa2a8214b0108220ad0bcb1e3085975768c3f71f559a998287c372cf37e5593c07ba91af7438e6c9060abb5f131d5459f06152e79016a2a09decf26ec9553ea5f2c275706c82389e93043a76517f48a457e006f200dfec8f13048dea62df4800055fd3127cd538b08542e6664b538f408537b473ff3aec68a7f21057bd2ecbee262225899ed7f9be8f4af02da0bc26c3f39cc250d4a4d150ef94836a1cb871963a7df78cef29fd5dd83db3aec305c863b34a62bdd0738444665fb7233150b67103ae8d83adbad7fb493d1cd65edfd3e4218d335afd7467ee",
+    "strategies": [
+      "jwt",
+      "local"
+    ],
+    "path": "/authentication",
+    "service": "users",
+    "jwt": {
+      "header": {
+        "typ": "access"
+      },
+      "audience": "https://yourdomain.com",
+      "subject": "anonymous",
+      "issuer": "feathers",
+      "algorithm": "HS256",
+      "expiresIn": "1d"
+    },
+    "local": {
+      "entity": "user",
+      "usernameField": "email",
+      "passwordField": "password"
+    }
   }
 }

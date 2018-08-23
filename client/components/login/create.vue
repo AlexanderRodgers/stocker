@@ -97,17 +97,14 @@
       },
       submit () {
         this.$F.service('authentication')
-          .create({
-            first_name: this.first,
-            last_name: this.last,
-            username: this.username,
-            password: this.password
-          })
+          .create({ email: 'alex@gmail.com', password: 'hello!' })
       }
     },
 
     mounted() {
-      console.log(this.$F.service('users'))
+      console.log('mounted has ran!')
+      this.$F.service('users')
+        .create({ email: 'alex@gmail.com', password: 'hello!' })
     }
   }
 </script>
