@@ -20,6 +20,7 @@ module.exports = {
   plugins: [
     '~/plugins/vuetify.js',
     '~plugins/feathers.js',
+    {src: '~/plugins/apex.js', ssr: false}
 ],
   css: [
     '~/assets/style/app.styl'

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <login v-if="login"/>
-    <create v-on:login="login = $event"/>
+    <login v-if="login" @user="login = $event"/>
+    <create v-if="!login" @login="login = $event"/>
   </div>  
 </template>
 
@@ -15,23 +15,13 @@ export default {
     Create
   },
 
-  computed: {
-    formChange: {
-      get() {
-        console.log('received event')
-        return this.login
-      },
-      set(val) {
-        this.login = val
-      }
+  data() {
+    return {
+      login: true,
+      create: false,
     }
   },
 
-  data() {
-    return {
-      login: false,
-    }
-  }
 }
 </script>
 

@@ -19,6 +19,8 @@
     "feathers-reactive": "^0.7.2",
     "nuxt": "^1.0.0",
     "socket.io-client": "^2.1.1",
+    "vue-apexcharts": "^1.1.0",
+    "vue-no-ssr": "^0.2.2",
     "vuetify": "^1.1.8"
   },
   "devDependencies": {

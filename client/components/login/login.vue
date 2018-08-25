@@ -27,9 +27,8 @@
             <v-spacer/>
             <v-btn @click="authenticate()">Submit</v-btn>
         </v-card-actions>
-        <p>No account? <a>Create one now.</a></p>
+        <p>No account? <a @click="createUser(false)">Create one now.</a></p>
     </v-form>
-
     </v-card>
     </v-flex>
 </v-layout>
@@ -58,6 +57,10 @@ export default {
     methods: {
         authenticate() {
             
+        },
+
+        createUser(val) {
+            this.$emit('user', val)
         }
     },
 
