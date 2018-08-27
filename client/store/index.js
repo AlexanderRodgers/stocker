@@ -1,17 +1,17 @@
 import Vuex from 'vuex'
-import core from '~/store/core/core.js'
-import feathersClient from './feathers-client.js'
+import feathersClient from './feathers-client'
 import feathersVuex, { initAuth } from 'feathers-vuex'
 const { auth } = feathersVuex(feathersClient)
-
 const createStore = () => {
   return new Vuex.Store({
-    modules: {
-      core,
-    },
     state: {},
+    mutations: {
+      increment (state) {
+        state.counter++
+      }
+    },
     actions: {
-      nuxtServerInit({ commit, dispatch}, { req }) {
+      nuxtServerInit ({ commit, dispatch }, { req }) {
         return initAuth({
           commit,
           dispatch,
@@ -26,13 +26,12 @@ const createStore = () => {
         userService: 'users',
         state: {
           publicPages: [
-            'index',
             'login',
+            'signup'
           ]
         }
       })
-    ],
-  });
+    ]
+  })
 }
-
 export default createStore
