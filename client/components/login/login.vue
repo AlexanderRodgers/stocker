@@ -25,7 +25,8 @@
         </v-container>
         <v-card-actions>
             <v-spacer/>
-            <v-btn @click="authenticate()">Submit</v-btn>
+            <v-btn @click="logout()">Logout</v-btn>
+            <v-btn @click="authenticate()">Login</v-btn>
         </v-card-actions>
         <p>No account? <a @click="createUser(false)">Create one now.</a></p>
     </v-form>
@@ -35,7 +36,12 @@
 </template>
 
 <script>
+import patchProfile from '~/utils/profilePatch.js'
 export default {
+
+    components: {
+        patchProfile,
+    },
 
     data() {
         return {
@@ -56,7 +62,40 @@ export default {
 
     methods: {
         authenticate() {
-            
+            // if(this.$refs.loginForm.validate())
+            // console.log(this.$store.dispatch('auth/authenticate'))
+            this.$store.dispatch('auth/authenticate', {
+                strategy: 'local',
+                email: 'alexedrodgers@gmail.com',
+                password: '',
+            })
+            .then((result) => {
+                console.log(result)
+            })
+            .catch(e => {
+                console.error('Authentication error', e);
+            })
+            // this.$F.service('authentication')
+            //     .create({
+            //         strategy: 'local',
+            //         email: 'alexedrodgers@gmail.com',
+            //         password: 'fu689tiLe',
+            //     }).then(token => {
+            //         this.$store.commit('auth/set-user', token.accessToken);
+            //         console.log('store updated')
+            //     }).catch(e => {
+            //         console.error('Authentication error', e);
+            //     })
+        },
+
+        logout() {
+            this.$store.dispatch('auth/logout')
+            .then(() => {
+                console.log('Logged out')
+            })
+            .catch(e => {
+                console.log('Unable to logout', e)
+            })
         },
 
         createUser(val) {

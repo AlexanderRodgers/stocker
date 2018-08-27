@@ -1,6 +1,5 @@
 <template>
   <v-app dark>
-
     <v-toolbar>
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-toolbar-title >Stocker</v-toolbar-title>
@@ -9,7 +8,7 @@
       <v-btn flat>Link One</v-btn>
       <v-btn flat>Link Two</v-btn>
       <v-btn flat>
-        <v-icon>account_circle</v-icon>
+        <v-icon large>account_circle</v-icon>
       </v-btn>
     </v-toolbar-items>
   </v-toolbar>

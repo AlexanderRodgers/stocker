@@ -1,11 +1,6 @@
 <template>
-<v-flex md6 sm12>
-    <div class="text-xs-center">
-      <v-chip close>Example Chip</v-chip>
-    </div>
-    <div class="text-xs-center">
-      <v-chip>Example Chip</v-chip>
-    </div>
+  <v-flex>
+
   </v-flex>
 </template>
 
@@ -13,10 +8,15 @@
 import AccountGraph from '~/components/main/AccountGraph'
 export default {
     
-    components: {
-        AccountGraph
-    }
+  components: {
+    AccountGraph
+  },
 
+  data() {
+    return {
+
+    }
+  },
 }
 </script>
 
