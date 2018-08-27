@@ -2,34 +2,34 @@
 <v-form ref="form">
     <v-layout row wrap justify-center>
         <v-flex xs12 sm10 md8 lg6>
-        <v-card>
-            <v-card-title class="headline">Login</v-card-title>
-            <v-container fluid>
-                    <v-text-field
-                        class="user-login"
-                        v-model="user"
-                        label="Username"
-                        required
+            <v-card>
+                <v-card-title class="headline">Login</v-card-title>
+                <v-container fluid>
+                        <v-text-field
+                            class="user-login"
+                            v-model="user"
+                            label="Username"
+                            required
+                            ></v-text-field>
+                        <v-text-field
+                            v-model="password"
+                            :append-icon="show ? 'visibility_off' : 'visibility'"
+                            :type="show ? 'text' : 'password'"
+                            name="input-10-1"
+                            label="Normal with hint text"
+                            hint="At least 8 characters"
+                            counter
+                            required
+                            @click:append="show = !show"
                         ></v-text-field>
-                    <v-text-field
-                        v-model="password"
-                        :append-icon="show ? 'visibility_off' : 'visibility'"
-                        :type="show ? 'text' : 'password'"
-                        name="input-10-1"
-                        label="Normal with hint text"
-                        hint="At least 8 characters"
-                        counter
-                        required
-                        @click:append="show = !show"
-                    ></v-text-field>
-            </v-container>
-            <v-card-actions>
-                <v-spacer/>
-                <v-btn @click="logout()">Logout</v-btn>
-                <v-btn @click="authenticate()">Login</v-btn>
-            </v-card-actions>
-            <p>No account? <a @click="createUser(false)">Create one now.</a></p>
-        </v-card>
+                </v-container>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn @click="logout()">Logout</v-btn>
+                    <v-btn @click="authenticate()">Login</v-btn>
+                </v-card-actions>
+                <p>No account? <a @click="createUser(false)">Create one now.</a></p>
+            </v-card>
         </v-flex>
     </v-layout>
 </v-form>
