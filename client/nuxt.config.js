@@ -1,5 +1,3 @@
-const nodeExternals = require('webpack-node-externals')
-const resolve = (dir) => require('path').join(__dirname, dir)
 
 module.exports = {
   /*
@@ -17,14 +15,7 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
-  router: {
-    middleware: ['auth']
-  },
-  plugins: [
-    '~/plugins/vuetify.js',
-    '~plugins/feathers.js',
-    {src: '~/plugins/apex.js', ssr: false}
-],
+  plugins: ['~/plugins/vuetify.js'],
   css: [
     '~/assets/style/app.styl'
   ],
@@ -36,16 +27,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    babel: {
-      plugins: [
-        ["transform-imports", {
-          "vuetify": {
-            "transform": "vuetify/es5/components/${member}",
-            "preventFullImport": true
-          }
-        }]
-      ]
-    },
     vendor: [
       '~/plugins/vuetify.js'
     ],
@@ -53,22 +34,15 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend (config, ctx) {
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-         // loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-      if (ctx.isServer) {
-        config.externals = [
-          nodeExternals({
-            whitelist: [/^vuetify/]
-          })
-        ]
-      }
-    }
+    // extend (config, ctx) {
+    //   if (ctx.isDev && ctx.isClient) {
+    //     config.module.rules.push({
+    //       enforce: 'pre',
+    //       test: /\.(js|vue)$/,
+    //       loader: 'eslint-loader',
+    //       exclude: /(node_modules)/
+    //     })
+    //   }
+    // }
   }
 }
