@@ -15,7 +15,19 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
-  plugins: ['~/plugins/vuetify.js'],
+  plugins: [
+    '~/plugins/vuetify.js',
+    '~/plugins/axios.js',
+    '~/plugins/feathers.js',
+    { src: '~/plugins/apex.js', ssr: false},
+    '~/plugins/persisted-state.js'
+  ],
+  modules: [
+    '@nuxtjs/axios',
+  ],
+  axios: {
+    // proxyHeaders: false
+  },
   css: [
     '~/assets/style/app.styl'
   ],
