@@ -11,11 +11,12 @@
       :items="items"
       :loading="isLoading"
       :search-input.sync="search"
+      multiple
       chips
       clearable
       hide-details
       hide-selected
-      item-text="symbol"
+      :item-text="['symbol', 'name']"
       item-value="symbol"
       label="Search for a stock..."
       solo
@@ -43,7 +44,7 @@
       </template>
       <template
         slot="item"
-        slot-scope="{ item, tile }"
+        slot-scope="{ item }"
       >
         <v-list-tile-avatar
           color="indigo"
@@ -94,12 +95,23 @@
             console.log(err)
           })
           .finally(() => (this.isLoading = false))
+      },
+
+      searchCompanies(searchOptions) {
+        for(let option of searchOptions) {
+          if(this.items[option] && this.items[option].includes(this.search)) {
+            return option
+          }
+        }
+        return "name"
       }
+
     },
 
     watch: {
       search (val) {
-        console.log('items', this.items)
+        console.log('model', this.model)
+
         // Items have already been loaded
         if (this.items.length > 0) return
 
