@@ -16,7 +16,7 @@
       clearable
       hide-details
       hide-selected
-      :item-text="['symbol', 'name']"
+      item-text="name"
       item-value="symbol"
       label="Search for a stock..."
       solo
@@ -46,6 +46,7 @@
         slot="item"
         slot-scope="{ item }"
       >
+      <!-- <logger :info="item"/> -->
         <v-list-tile-avatar
           color="indigo"
           class="headline font-weight-light white--text"
@@ -75,14 +76,18 @@
 </template>
 
 <script>
+import Logger from '~/components/logger.vue'
   export default {
+    components: {
+      Logger,
+    },
     data: () => ({
-      apiKey: '11303c9f-617c-4d50-b384-73a03d7ed81e',
+      // apiKey: '11303c9f-617c-4d50-b384-73a03d7ed81e',
       endpoint: 'https://api.iextrading.com/1.0/',
       isLoading: false,
       items: [],
       model: null,
-      search: null
+      search: 'null'
     }),
 
     methods: { 

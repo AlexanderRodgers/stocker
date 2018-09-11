@@ -105,7 +105,7 @@
               email: this.email,
               username: this.username,
               password: this.password,
-            })
+            }).then(this.$emit('login', true))
         }
       },
 

@@ -18,7 +18,7 @@
                             name="input-10-1"
                             label="Normal with hint text"
                             hint="At least 8 characters"
-                            counter
+                            counter     
                             required
                             @click:append="show = !show"
                         ></v-text-field>

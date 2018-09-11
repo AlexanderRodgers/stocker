@@ -1,18 +1,19 @@
 <template>
 <div>
-  <create-profile/>
     <v-layout column justify-center align-center>
       <!-- <p>Webpage</p> -->
-      <v-btn href="/login">Login</v-btn> 
+      <dashboard/>
     </v-layout>
 </div>
 </template>
 
 <script>
 import CreateProfile from '~/components/main/createProfile.vue'
+import Dashboard from '~/pages/dashboard.vue'
 export default {
   components: {
     CreateProfile,
+    Dashboard
   },
   data() {
     return {
